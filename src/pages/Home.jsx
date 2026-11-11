@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 
 import {
@@ -21,6 +22,7 @@ function Home() {
   const [observations, setObservations] = useState([]);
   const [category, setCategory] = useState('');
   const [taxonId, setTaxonId] = useState('');
+  const [sortBy, setSortBy] = useState('newest');
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
@@ -30,7 +32,7 @@ function Home() {
   const [noTaxonMatch, setNoTaxonMatch] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
-  // Retrieve observations whenever the filters or page change.
+  // Retrieve observations whenever filters, sorting, or page change.
   useEffect(() => {
     let ignore = false;
 
@@ -44,6 +46,7 @@ function Home() {
           perPage: PER_PAGE,
           taxonId,
           iconicTaxon: category,
+          sortBy,
         });
 
         if (ignore) return;
@@ -70,7 +73,7 @@ function Home() {
     return () => {
       ignore = true;
     };
-  }, [page, taxonId, category, retryCount]);
+  }, [page, taxonId, category, sortBy, retryCount]);
 
   // Search for a species, then retrieve its observations.
   async function handleSearch(searchTerm) {
@@ -86,16 +89,13 @@ function Home() {
         setObservations([]);
         setTotalResults(0);
         setNoTaxonMatch(true);
-        setIsSearching(false);
         return;
       }
 
       setPage(1);
       setTaxonId(String(taxa[0].id));
-    } catch  {
-      setError(
-        'Species search failed. Please try again.'
-      );
+    } catch {
+      setError('Species search failed. Please try again.');
     } finally {
       setIsSearching(false);
     }
@@ -113,6 +113,11 @@ function Home() {
     setPage(1);
   }
 
+  function handleSortChange(event) {
+    setSortBy(event.target.value);
+    setPage(1);
+  }
+
   function handlePageChange(newPage) {
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -125,7 +130,7 @@ function Home() {
   const totalPages = Math.min(
     Math.ceil(totalResults / PER_PAGE),
     MAX_PAGES
-);
+  );
 
   return (
     <section className="home-page">
@@ -156,10 +161,25 @@ function Home() {
             <h2>Explore Observations</h2>
           </div>
 
-          <CategoryFilter
-            value={category}
-            onChange={handleCategoryChange}
-          />
+          <div className="observation-controls">
+            <CategoryFilter
+              value={category}
+              onChange={handleCategoryChange}
+            />
+
+            <label className="sort-filter">
+              <span>Sort by</span>
+
+              <select
+                value={sortBy}
+                onChange={handleSortChange}
+                aria-label="Sort observations"
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
+            </label>
+          </div>
         </div>
 
         {!isLoading && !error && !noTaxonMatch && (

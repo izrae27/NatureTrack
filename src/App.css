@@ -1,4 +1,8 @@
-/* GENERAL LAYOUT */
+
+/* ========================================
+   GENERAL LAYOUT
+======================================== */
+
 #root {
   min-height: 100vh;
 }
@@ -72,7 +76,9 @@
   font-size: 11px;
 }
 
-/* HERO SECTION */
+/* ========================================
+   HERO SECTION
+======================================== */
 
 .hero-section {
   padding: 90px 24px 80px;
@@ -113,7 +119,9 @@
   line-height: 1.8;
 }
 
-/* SEARCH BAR */
+/* ========================================
+   SEARCH BAR
+======================================== */
 
 .search-form {
   width: min(100%, 650px);
@@ -170,7 +178,9 @@
   background: #3e6239;
 }
 
-/* DISCOVER SECTION */
+/* ========================================
+   DISCOVER SECTION
+======================================== */
 
 .discover-section,
 .favorites-page {
@@ -199,9 +209,20 @@
   font-size: 13px;
 }
 
-/* CATEGORY FILTER */
+/* ========================================
+   CATEGORY AND SORTING CONTROLS
+======================================== */
 
-.category-filter {
+.observation-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.category-filter,
+.sort-filter {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -209,17 +230,35 @@
   font-size: 13px;
 }
 
-.category-filter select {
+.category-filter select,
+.sort-filter select {
   min-width: 150px;
-  padding: 11px 30px 11px 12px;
+  min-height: 42px;
+  padding: 10px 32px 10px 12px;
   border: 1px solid #dfe6d9;
   border-radius: 8px;
   outline: none;
-  background: white;
+  background-color: white;
   color: #344a38;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* OBSERVATION GRID */
+.sort-filter select {
+  min-width: 145px;
+}
+
+.category-filter select:focus,
+.sort-filter select:focus {
+  border-color: #668b68;
+  box-shadow: 0 0 0 3px rgba(102, 139, 104, 0.12);
+}
+
+/* ========================================
+   OBSERVATION GRID
+======================================== */
 
 .observation-grid {
   display: grid;
@@ -338,7 +377,9 @@
   text-decoration: underline;
 }
 
-/* PAGINATION */
+/* ========================================
+   PAGINATION
+======================================== */
 
 .pagination {
   display: flex;
@@ -370,7 +411,9 @@
   font-size: 13px;
 }
 
-/* LOADING, ERROR AND EMPTY STATES */
+/* ========================================
+   LOADING, ERROR AND EMPTY STATES
+======================================== */
 
 .loading-state,
 .error-state,
@@ -434,7 +477,9 @@
   color: #77916e;
 }
 
-/* FAVORITES PAGE */
+/* ========================================
+   FAVORITES PAGE
+======================================== */
 
 .favorites-heading {
   margin-bottom: 35px;
@@ -472,7 +517,9 @@
   margin-top: 10px;
 }
 
-/* OBSERVATION DETAILS */
+/* ========================================
+   OBSERVATION DETAILS
+======================================== */
 
 .details-page {
   max-width: 1200px;
@@ -576,7 +623,83 @@
   text-decoration: underline;
 }
 
-/* RESPONSIVE DESIGN */
+/* ========================================
+   PHOTO ATTRIBUTION AND LICENSE
+======================================== */
+
+.photo-credit {
+  padding: 10px 14px;
+  background: #f4f7f2;
+  border-bottom: 1px solid #e5ebe2;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #647164;
+  overflow-wrap: anywhere;
+}
+
+.photo-credit p {
+  margin: 0 0 3px;
+}
+
+.photo-credit strong {
+  color: #405640;
+}
+
+.photo-credit a {
+  display: inline-block;
+  margin-top: 3px;
+  color: #527b4e;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.photo-credit a:hover {
+  text-decoration: underline;
+}
+
+.details-image-container .photo-credit {
+  border-radius: 0 0 12px 12px;
+}
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+[data-theme="dark"] .photo-credit {
+  background: #202b23;
+  border-color: #354638;
+  color: #c0cdbf;
+}
+
+[data-theme="dark"] .photo-credit strong {
+  color: #dcebd8;
+}
+
+[data-theme="dark"] .photo-credit a {
+  color: #a4d39a;
+}
+
+[data-theme="dark"] .category-filter,
+[data-theme="dark"] .sort-filter {
+  color: #c0cdbf;
+}
+
+[data-theme="dark"] .category-filter select,
+[data-theme="dark"] .sort-filter select {
+  background-color: #202b23;
+  border-color: #405442;
+  color: #e0e9dd;
+}
+
+[data-theme="dark"] .category-filter select:focus,
+[data-theme="dark"] .sort-filter select:focus {
+  border-color: #91b888;
+  box-shadow: 0 0 0 3px rgba(145, 184, 136, 0.15);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
 
 @media (max-width: 900px) {
   .observation-grid {
@@ -633,6 +756,25 @@
     flex-direction: column;
   }
 
+  .observation-controls {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .category-filter,
+  .sort-filter {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .category-filter select,
+  .sort-filter select {
+    flex: 1;
+    min-width: 0;
+  }
+
   .observation-grid {
     grid-template-columns: 1fr;
   }
@@ -660,55 +802,4 @@
   .details-information h1 {
     font-size: 29px;
   }
-}
-
-/* Photo attribution and license */
-.photo-credit {
-  padding: 10px 14px;
-  background: #f4f7f2;
-  border-bottom: 1px solid #e5ebe2;
-  font-size: 11px;
-  line-height: 1.6;
-  color: #647164;
-  overflow-wrap: anywhere;
-}
-
-.photo-credit p {
-  margin: 0 0 3px;
-}
-
-.photo-credit strong {
-  color: #405640;
-}
-
-.photo-credit a {
-  display: inline-block;
-  margin-top: 3px;
-  color: #527b4e;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.photo-credit a:hover {
-  text-decoration: underline;
-}
-
-/* Photo credit on the observation details page */
-.details-image-container .photo-credit {
-  border-radius: 0 0 12px 12px;
-}
-
-/* Dark mode support */
-[data-theme="dark"] .photo-credit {
-  background: #202b23;
-  border-color: #354638;
-  color: #c0cdbf;
-}
-
-[data-theme="dark"] .photo-credit strong {
-  color: #dcebd8;
-}
-
-[data-theme="dark"] .photo-credit a {
-  color: #a4d39a;
 }
