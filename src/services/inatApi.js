@@ -30,18 +30,21 @@ async function apiRequest(endpoint, params = {}) {
   return response.json();
 }
 
-// Get observations with pagination and optional filters
+// Get observations with pagination, sorting, and optional filters
 export async function fetchObservations({
   page = 1,
   perPage = 12,
   taxonId = '',
   iconicTaxon = '',
+  sortBy = 'newest',
 } = {}) {
+  const order = sortBy === 'oldest' ? 'asc' : 'desc';
+
   const params = {
     page,
     per_page: perPage,
-    order_by: 'created_at',
-    order: 'desc',
+    order_by: 'observed_on',
+    order,
   };
 
   if (taxonId) {
