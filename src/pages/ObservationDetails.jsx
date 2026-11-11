@@ -1,6 +1,13 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Heart, MapPin, CalendarDays, User } from 'lucide-react';
+import {
+  ArrowLeft,
+  Heart,
+  MapPin,
+  CalendarDays,
+  User,
+} from 'lucide-react';
 
 import { fetchObservationById } from '../services/inatApi.js';
 import { useFavorites } from '../context/FavoritesContext.jsx';
@@ -8,6 +15,7 @@ import { useFavorites } from '../context/FavoritesContext.jsx';
 import Loading from '../components/Loading.jsx';
 import ErrorMessage from '../components/ErrorMessage.jsx';
 import EmptyState from '../components/EmptyState.jsx';
+import PhotoCredit from '../components/PhotoCredit.jsx';
 
 function ObservationDetails() {
   const { id } = useParams();
@@ -81,7 +89,10 @@ function ObservationDetails() {
   }
 
   const taxon = observation.taxon;
-  const photo = observation.photos?.[0]?.url;
+  const photo = observation.photos?.[0]?.url?.replace(
+  '/square.',
+  '/large.'
+);
   const saved = isFavorite(observation.id);
 
   const commonName =
@@ -110,6 +121,11 @@ function ObservationDetails() {
               No image available
             </div>
           )}
+
+          <PhotoCredit
+            photo={observation.photos?.[0]}
+            observationUrl={observation.uri}
+          />
         </div>
 
         <div className="details-information">
@@ -122,7 +138,9 @@ function ObservationDetails() {
 
           <button
             type="button"
-            className={`favorite-button details-favorite ${saved ? 'saved' : ''}`}
+            className={`favorite-button details-favorite ${
+              saved ? 'saved' : ''
+            }`}
             onClick={() => toggleFavorite(observation)}
           >
             <Heart

@@ -661,3 +661,54 @@
     font-size: 29px;
   }
 }
+
+/* Photo attribution and license */
+.photo-credit {
+  padding: 10px 14px;
+  background: #f4f7f2;
+  border-bottom: 1px solid #e5ebe2;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #647164;
+  overflow-wrap: anywhere;
+}
+
+.photo-credit p {
+  margin: 0 0 3px;
+}
+
+.photo-credit strong {
+  color: #405640;
+}
+
+.photo-credit a {
+  display: inline-block;
+  margin-top: 3px;
+  color: #527b4e;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.photo-credit a:hover {
+  text-decoration: underline;
+}
+
+/* Photo credit on the observation details page */
+.details-image-container .photo-credit {
+  border-radius: 0 0 12px 12px;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .photo-credit {
+  background: #202b23;
+  border-color: #354638;
+  color: #c0cdbf;
+}
+
+[data-theme="dark"] .photo-credit strong {
+  color: #dcebd8;
+}
+
+[data-theme="dark"] .photo-credit a {
+  color: #a4d39a;
+}
