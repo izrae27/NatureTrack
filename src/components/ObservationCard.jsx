@@ -1,17 +1,23 @@
+
 import { Link } from 'react-router-dom';
 import { Heart, MapPin, CalendarDays } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext.jsx';
+import PhotoCredit from './PhotoCredit.jsx';
 
 function ObservationCard({ observation }) {
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const taxon = observation.taxon;
-  const photo = observation.photos?.[0]?.url;
+  const photo = observation.photos?.[0]?.url?.replace(
+  '/square.',
+  '/large.'
+);
 
   const commonName =
     taxon?.preferred_common_name || 'Unknown species';
 
-  const scientificName = taxon?.name || 'Scientific name unavailable';
+  const scientificName =
+    taxon?.name || 'Scientific name unavailable';
 
   const saved = isFavorite(observation.id);
 
@@ -35,11 +41,18 @@ function ObservationCard({ observation }) {
           type="button"
           className={`favorite-button ${saved ? 'saved' : ''}`}
           onClick={() => toggleFavorite(observation)}
-          aria-label={saved ? 'Remove from favorites' : 'Add to favorites'}
+          aria-label={
+            saved ? 'Remove from favorites' : 'Add to favorites'
+          }
         >
           <Heart size={20} fill={saved ? 'currentColor' : 'none'} />
         </button>
       </div>
+
+      <PhotoCredit
+        photo={observation.photos?.[0]}
+        observationUrl={observation.uri}
+      />
 
       <div className="card-content">
         <span className="taxon-category">

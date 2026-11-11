@@ -14,6 +14,8 @@ import ErrorMessage from '../components/ErrorMessage.jsx';
 import EmptyState from '../components/EmptyState.jsx';
 
 const PER_PAGE = 12;
+const MAX_API_RESULTS = 10000;
+const MAX_PAGES = Math.floor(MAX_API_RESULTS / PER_PAGE);
 
 function Home() {
   const [observations, setObservations] = useState([]);
@@ -120,7 +122,10 @@ function Home() {
     setRetryCount((current) => current + 1);
   }
 
-  const totalPages = Math.ceil(totalResults / PER_PAGE);
+  const totalPages = Math.min(
+    Math.ceil(totalResults / PER_PAGE),
+    MAX_PAGES
+);
 
   return (
     <section className="home-page">
