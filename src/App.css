@@ -779,10 +779,6 @@
     grid-template-columns: 1fr;
   }
 
-  .card-image-container {
-    height: 240px;
-  }
-
   .pagination {
     gap: 10px;
   }
@@ -801,5 +797,103 @@
 
   .details-information h1 {
     font-size: 29px;
+  }
+}
+
+/* ========================================
+   OBSERVATION CARD ALIGNMENT FIX
+======================================== */
+
+.observation-grid {
+  align-items: stretch;
+}
+
+.observation-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+}
+
+.card-image-container {
+  width: 100%;
+  height: 300px;
+  flex: 0 0 300px;
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-image-container .image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.photo-credit {
+  flex-shrink: 0;
+  overflow-wrap: anywhere;
+}
+
+.card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card-content h3 {
+  min-height: 2.7em;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.scientific-name {
+  min-height: 2.6em;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.observation-meta {
+  flex-shrink: 0;
+}
+
+.observation-meta span {
+  min-width: 0;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.observation-meta span svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.details-link {
+  margin-top: auto;
+  padding-top: 12px;
+  align-self: flex-start;
+}
+
+/* Responsive image height */
+
+@media (max-width: 600px) {
+  .card-image-container {
+    height: 320px;
+    flex-basis: 320px;
   }
 }
