@@ -65,6 +65,14 @@ function ObservationCard({ observation }) {
           {scientificName}
         </p>
 
+        <div className="detail-item">
+            <User size={19} />
+              <strong>Observer</strong>
+              <p>
+                {observation.user?.login || 'Unknown observer'}
+              </p>
+            </div>
+
         <div className="observation-meta">
           <span>
             <MapPin size={15} />
